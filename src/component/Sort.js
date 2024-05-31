@@ -1,4 +1,13 @@
+import React from 'react';
+// 1-const state
 const Sort = () => {
+const [open, setOpen] = React.useState(false);
+// a-make array for  select pop-up list
+const listPopUp = ['популярности', 'цене', 'алфавиту']
+
+// b- make State for select pop-up list
+const[popUpSelect, setPopUpSelect] = React.useState(0);
+
   return (
     <div className="sort">
       <div className="sort__label">
@@ -14,17 +23,29 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>популярности</span>
+        {/* 3-make visible and hide pop-up */}
+        <span onClick={() => setOpen(!open)}>популярности</span>
       </div>
-      <div className="sort__popup">
+        {/* 2-hiding pop-up React.useState(false) */}
+      {open && <div className="sort__popup">
         <ul>
-          <li className="active">популярности</li>
-          <li>цене</li>
-          <li>алфавиту</li>
-        </ul>
+
+          {/* c- make condition for select pop-up list */}
+      {listPopUp.map((name, i) => (
+        <li
+        key={i}
+        onClick={() => setPopUpSelect(i)}
+        className={popUpSelect === i ? 'active' : ''}>
+        {name} 
+        </li>
+      ))}
+       </ul>
       </div>
+      }
     </div>
   );
 };
 
 export default Sort;
+
+

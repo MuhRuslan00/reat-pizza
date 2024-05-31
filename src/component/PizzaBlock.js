@@ -24,14 +24,19 @@ const [activeSize, setActiveSize] = React.useState(0);
         <ul>
         {
         types.map((typeId) => (
-        <li onClick={() => setActiveTipe(typeId)} className={activeTipe ===typeId ? 'active' : ''}>{typeNames[typeId]} 
+        <li
+        key={typeId}
+         onClick={() => setActiveTipe(typeId)} className={activeTipe ===typeId ? 'active' : ''}>{typeNames[typeId]} 
           </li>
       ))}
         
         </ul>
         <ul>
           {
-            sizes.map((size, i) => (<li onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>{size}см</li>
+            sizes.map((size, i) => (
+            <li
+            key={size}
+             onClick={() => setActiveSize(i)} className={activeSize === i ? 'active' : ''}>{size}см</li>
           ))}
         </ul>
       </div>

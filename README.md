@@ -71,3 +71,112 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 React Pizza v2 (REMASTERED)
 https://peaceful-dove-11d.notion.site/React-Pizza-v2-REMASTERED-655fa3a5ea4f4bce8faeee2f28a8fb22 
+
+Примерное разъяснение кодов, но не в деталях.
+
+Categories js.
+по клику меняем активность категорий.
+1. const [active, setActive] = React.useState(0);
+2. Создать массив: const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+3. <li className={active === i ? 'active' : ''}>Все</li>
+4.  для клика в начале создать переменную до return:
+      const onClickCategory = (i) => {
+       setActive(i)};
+5. для каждой  <li создать onClick с аноним функцией, кот вызывает нашу ф-ю onClickCategory:
+    <li
+          key={i}
+           onClick={() => onClickCategory(i)} className={active === i ? 'active' : ''} >{value}</li>
+        ))}    
+6. {value} - значения в заданном массиве
+7.  { categories.map((value, i) => (..... - нужна чтобы перебрать все эл массива
+***********************************
+Рендеринг основной страницы:
+1. Создать массив данных. Array.js
+2. Импорт массива в App.js
+3. рендер через {pizzas.map((obj) => (
+            <PizzaBlock key={obj.id} {...obj}
+            или так 
+            title={obj.title}
+            price={obj.price}
+            img={obj.img} 
+            sizes={obj.sizes}
+            types={obj.types} 
+            />))} -->
+4. const PizzaBlock = ({ title, price, img, types, sizes, category, rating}) => {
+    <h4 className="pizza-block__title">{title}</h4> -вставляем в виде  статичных пропсов
+5. PizzaBlock.js  Рендер sizes: [26, 30, 40]:
+   {
+            sizes.map((size) => (
+            <li
+            key={size}
+6.а Рендер types: [0, 1],Тонкое, традиционное
+  
+  PizzaBlock: создать массив: const typeNames = ['тонкое', 'традиционное'];
+  PizzaBlock:  const PizzaBlock = ({ title, price, img, types, sizes, category, rating})
+  App.js:  рендер через {pizzas.map((obj) => (
+            <PizzaBlock key={obj.id} {...obj}
+            или так 
+            types={obj.types} 
+            />))} -->
+  <ul>
+        {
+        types.map((typeId) => (
+        <li
+        key={typeId}
+         onClick={() => setActiveTipe(typeId)} className={activeTipe ===typeId ? 'active' : ''}>{typeNames[typeId]} 
+          </li>
+ 6.б Для переключения по клику, если по этому клику вызывется только одна функция, то можно так сокращать:
+        const [activeTipe, setActiveTipe] = React.useState(0);
+        onClick={() => setActiveTipe(typeId)} className={activeTipe ===typeId ? 'active' : ''}
+
+*****************************************
+Sort.js
+Поп-ап, появление, исчезание, выбор из списка.
+ - 1-3 Создаем стейт для open, setOpen
+2. условный рендеринг className="sort__popup"
+3. по клику на span видимость и исчез popup
+
+Sort.js - a-b созд массив
+2. создаем popUpSelect, setPopUpSelect
+3. создаем map
+*************************************************
+mockapi.io -готовый сервис предоставляет возм хранить данные а предпроекте
+есть бесплатный тариф
+sign up
+1. создать проект (+)
+2. new resource name (items) --> create --> items == ссылка на твой массив, а на странице пустой [] - необходимо перенести данные массива из локалки в МОКАПИ
+3. копируем массив в локалке--> переход в Мокапи в DATA--> втавить в [] скопироа массив
+4. вызов данных с сервера для отображения в 3000 --- запрос на бекенд
+    function App() {
+  fetch('https://665a0cf9de346625136ee5a1.mockapi.io/item')
+  .then((res) => {
+    // console.log(res);
+    return res.json();
+  })
+  .then((json) => { ---> переконверция и возвращение массива
+    console.log(json)
+  });
+
+  4a- const [items, setItems] = React.useState([]); - пустая коробка
+ ----   {pizzas.map((obj) => (-----меняем на----{.items((obj) => (
+  4б - .then((arr) => { ---> переконверция и возвращение массива
+    setItems(arr);
+  });--- при таком коде идет бесконечный запрос, соответственно код помещаем в 
+    React.useEffect(() => {
+     fetch('https://665a0cf9de346625136ee5a1.mockapi.io/item').....
+ 
+  }, []) --- вставляем пустой массив, он будет рендерится один раз
+  **убираем импорт**import { pizzas } from './assets/Array';
+
+  
+
+
+
+
+
+
+
+  
+
+
+
